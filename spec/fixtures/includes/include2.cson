@@ -1,2 +1,15 @@
-'scopeName': 'source.coffee'
-'fileTypes': ['coffee']
+'scopeName': 'text.plain'
+'fileTypes': ['txt']
+tags:
+  body:
+    open: "[body: "
+    close: ']'
+  line:
+    open: '[line: '
+    close: "]"
+  scope:
+    open: '[scopes: \\0 '
+    close: ']'
+  value:
+    open: '[value: '
+    close: ']'
