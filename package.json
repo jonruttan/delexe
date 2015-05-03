@@ -31,7 +31,6 @@
     "grunt-coffeelint": "^0.0.13",
     "grunt-contrib-coffee": "^0.13.0",
     "grunt-shell": "^1.1.2",
-    "jasmine-focused": "^1.0.7",
-    "language-erlang": "^2.0.0"
+    "jasmine-focused": "^1.0.7"
   }
 }
