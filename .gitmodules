@@ -1,0 +1,6 @@
+[submodule "deps/renderer-text"]
+	path = deps/renderer-text
+	url = https://github.com/jonruttan/renderer-text
+[submodule "deps/renderer-html"]
+	path = deps/renderer-html
+	url = https://github.com/jonruttan/renderer-html
