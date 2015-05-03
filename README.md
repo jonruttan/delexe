@@ -50,8 +50,8 @@ Some popular themes:
 #### Using in code
 
 ```coffee
-delexe = require './lib/delexe'
-renderer = new delexe()
+Delexe = require 'delexe'
+renderer = new Delexe()
 html = renderer.renderSync(
   scopeName: 'text.html.plain'
   fileTokens: [
