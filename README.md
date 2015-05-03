@@ -1,4 +1,4 @@
-Read in JSON/CSON tokens from a TextMate-style lexical analyser and render the output in a variety of formats.
+Read in JSON/CSON tokens from a TextMate-style lexical analyser and render the tokens with rendering modules written in a TextMate-style syntax.
 
 Based on code converted from the [Highlights](https://github.com/atom/highlights) project.
 
