@@ -54,7 +54,7 @@ module.exports = ->
     fileContents = ''
     process.stdin.on 'data', (chunk) -> fileContents += chunk.toString()
     process.stdin.on 'end', ->
-      fileTokens = CSON.parseObject(filePath, fileContents)
+      fileTokens = CSON.parse(fileContents)
       html = new delexe().renderSync({filePath, fileTokens, scopeName: cli.argv.scope})
       if outputPath
         fs.writeFileSync(outputPath, html)
