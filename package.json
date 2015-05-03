@@ -1,7 +1,7 @@
 {
   "name": "delexe",
   "version": "0.1.0",
-  "description": "Render tokens from a TextMate-style lexical analyser in a variety of formats",
+  "description": "Render tokens from a TextMate-style lexical analyser using rendering modules",
   "main": "lib/delexe.js",
   "scripts": {
     "test": "grunt test",
