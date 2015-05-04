@@ -2,7 +2,7 @@ path = require 'path'
 fs = require 'fs-plus'
 CSON = require 'season'
 optimist = require 'optimist'
-delexe = require './delexe'
+Delexe = require './delexe'
 
 module.exports = ->
   cli = optimist.describe('h', 'Show this message').alias('h', 'help')
@@ -35,6 +35,14 @@ module.exports = ->
   outputPath = cli.argv.output
   outputPath = path.resolve(outputPath) if outputPath
 
+  delexe = new Delexe()
+
+  output = (outputPath, string) ->
+    if outputPath
+      fs.writeFileSync(outputPath, string)
+    else
+      console.log(string)
+
   if filePath
     filePath = path.resolve(filePath)
     unless fs.isFileSync(filePath)
@@ -42,11 +50,8 @@ module.exports = ->
       process.exit(1)
       return
 
-    html = new delexe().renderSync({filePath: outputPath, scopeName: cli.argv.scope})
-    if outputPath
-      fs.writeFileSync(outputPath, html)
-    else
-      console.log(html)
+    string = delexe.renderSync({filePath: outputPath, scopeName: cli.argv.scope})
+    output outputPath, string
   else
     filePath = cli.argv.f or outputPath
     process.stdin.resume()
@@ -55,8 +60,5 @@ module.exports = ->
     process.stdin.on 'data', (chunk) -> fileContents += chunk.toString()
     process.stdin.on 'end', ->
       fileTokens = CSON.parse(fileContents)
-      html = new delexe().renderSync({filePath, fileTokens, scopeName: cli.argv.scope})
-      if outputPath
-        fs.writeFileSync(outputPath, html)
-      else
-        console.log(html)
+      string = delexe.renderSync({filePath, fileTokens, scopeName: cli.argv.scope})
+      output outputPath, string
