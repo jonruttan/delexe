@@ -35,7 +35,7 @@ module.exports = ->
   outputPath = cli.argv.output
   outputPath = path.resolve(outputPath) if outputPath
 
-  delexe = new Delexe()
+  delexe = new Delexe(includePath: cli.argv.include)
 
   output = (outputPath, string) ->
     if outputPath
