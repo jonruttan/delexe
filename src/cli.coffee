@@ -42,7 +42,7 @@ module.exports = ->
       process.exit(1)
       return
 
-    html = new delexe().renderSync({filePath: outputPath, scopeName: cli.argv.scope})
+    html = new delexe().renderSync({filePath, scopeName: cli.argv.scope})
     if outputPath
       fs.writeFileSync(outputPath, html)
     else
