@@ -1,3 +1,5 @@
+'use strict'
+
 path = require 'path'
 fs = require 'fs-plus'
 CSON = require 'season'
@@ -12,11 +14,11 @@ module.exports = ->
                 .describe('v', 'Output the version').alias('v', 'version').boolean('v')
                 .describe('f', 'File path to use for renderer detection when reading from stdin').alias('f', 'file-path').string('f')
   optimist.usage """
-    Usage: delexe [options] [file]
+    Usage: delexe [options] [file...]
 
     Input tokens from a TextMate-style lexical analyser in JSON/CSON format and render the output.
 
-    If no input file is specified then the token list to render is read as JSON/CSON from standard in.
+    If no input files are specified then the token list to render is read as JSON/CSON from standard in.
 
     If no output file is specified then the rendered output is written to standard out.
   """
@@ -30,8 +32,6 @@ module.exports = ->
     console.log(version)
     return
 
-  [filePath] = cli.argv._
-
   outputPath = cli.argv.output
   outputPath = path.resolve(outputPath) if outputPath
 
@@ -43,15 +43,16 @@ module.exports = ->
     else
       console.log(string)
 
-  if filePath
-    filePath = path.resolve(filePath)
-    unless fs.isFileSync(filePath)
-      console.error("Specified path is not a file: #{filePath}")
-      process.exit(1)
-      return
+  if cli.argv._.length
+    for filePath in cli.argv._
+      filePath = path.resolve(filePath)
+      unless fs.isFileSync(filePath)
+        console.error("Specified path is not a file: #{filePath}")
+        process.exit(1)
+        return
 
-    string = delexe.renderSync({filePath: outputPath, scopeName: cli.argv.scope})
-    output outputPath, string
+      string = delexe.renderSync({filePath: outputPath, scopeName: cli.argv.scope})
+      output outputPath, string
   else
     filePath = cli.argv.f or outputPath
     process.stdin.resume()
