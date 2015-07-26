@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Delexe by jonruttan</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Delexe</h1>
+        <p>Read in JSON/CSON tokens from a TextMate-style lexical analyser and render the output in a variety of formats.</p>
+
+        <p class="view"><a href="https://github.com/jonruttan/delexe">View the Project on GitHub <small>jonruttan/delexe</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/jonruttan/delexe/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/jonruttan/delexe/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/jonruttan/delexe">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>Read in JSON/CSON tokens from a TextMate-style lexical analyser and render the tokens with rendering modules written in a TextMate-style syntax.</p>
+
+<p>Based on code converted from the <a href="https://github.com/atom/highlights">Highlights</a> project.</p>
+
+<p><a href="https://travis-ci.org/jonruttan/delexe"><img src="https://travis-ci.org/jonruttan/delexe.svg" alt="Build Status"></a></p>
+
+<h3>
+<a id="installing" class="anchor" href="#installing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing</h3>
+
+<div class="highlight highlight-sh"><pre>npm install delexe</pre></div>
+
+<h3>
+<a id="using" class="anchor" href="#using" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using</h3>
+
+<p>Run <code>delexe -h</code> for full details about the supported options.</p>
+
+<p>To convert a JSON token file to tokenized HTML run the following:</p>
+
+<div class="highlight highlight-sh"><pre>delexe tokens.json -o file.html</pre></div>
+
+<p>Now you have a <code>file.html</code> file that has a big <code>&lt;pre&gt;</code> tag with a <code>&lt;div&gt;</code> for
+each line with <code>&lt;span&gt;</code> elements for each token's scope.</p>
+
+<p>Then you can compile an existing Atom theme into a stylesheet with the
+following:</p>
+
+<div class="highlight highlight-sh"><pre>git clone https://github.com/atom/atom-dark-syntax
+<span class="pl-c1">cd</span> atom-dark-syntax
+npm install -g less
+lessc --include-path=stylesheets index.less atom-dark-syntax.css</pre></div>
+
+<p>Now you have an <code>atom-dark-syntax.css</code> stylesheet that be combined with
+the <code>file.html</code> file to generate some nice looking code.</p>
+
+<p>Check out the <a href="https://jonruttan.github.io/delexe/examples">examples</a> to see
+it in action.</p>
+
+<p>Check out <a href="https://atom.io/packages">atom.io</a> to find more themes.</p>
+
+<p>Some popular themes:</p>
+
+<ul>
+<li><a href="https://github.com/atom/atom-dark-syntax">atom-dark-syntax</a></li>
+<li><a href="https://github.com/atom/atom-light-syntax">atom-light-syntax</a></li>
+<li><a href="https://github.com/atom/solarized-dark-syntax">solarized-dark-syntax</a></li>
+<li><a href="https://github.com/atom/solarized-light-syntax">solarized-light-syntax</a></li>
+</ul>
+
+<h4>
+<a id="using-in-code" class="anchor" href="#using-in-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using in code</h4>
+
+<div class="highlight highlight-coffee"><pre><span class="pl-v"><span class="pl-v">Delexe <span class="pl-k">=</span></span></span> <span class="pl-c1">require</span> <span class="pl-s"><span class="pl-pds">'</span>delexe<span class="pl-pds">'</span></span>
+<span class="pl-v"><span class="pl-v">renderer <span class="pl-k">=</span></span></span> <span class="pl-k">new</span> <span class="pl-en">Delexe</span>()
+<span class="pl-v"><span class="pl-v">html <span class="pl-k">=</span></span></span> renderer.renderSync(
+  <span class="pl-v"><span class="pl-v">scopeName:</span></span> <span class="pl-s"><span class="pl-pds">'</span>text.html.plain<span class="pl-pds">'</span></span>
+  <span class="pl-v"><span class="pl-v">fileTokens:</span></span> [
+    [
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>var<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+          <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>storage.modifier.js<span class="pl-pds">"</span></span>
+        ]
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span> hello <span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+          <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>
+        ]
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>=<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+          <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>keyword.operator.js<span class="pl-pds">"</span></span>
+        ]
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+          <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>
+        ]
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+          <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>string.quoted.single.js<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>punctuation.definition.string.begin.js<span class="pl-pds">"</span></span>
+        ]
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>world<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+          <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>string.quoted.single.js<span class="pl-pds">"</span></span>
+        ]
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+          <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>string.quoted.single.js<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>punctuation.definition.string.end.js<span class="pl-pds">"</span></span>
+        ]
+      },
+      {
+        <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>;<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>scopes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+          <span class="pl-s"><span class="pl-pds">"</span>source.js<span class="pl-pds">"</span></span>,
+          <span class="pl-s"><span class="pl-pds">"</span>punctuation.terminator.statement.js<span class="pl-pds">"</span></span>
+        ]
+      }
+    ]
+  ]
+)
+
+<span class="pl-en">console</span>.<span class="pl-c1">log</span> html</pre></div>
+
+<p>Outputs:</p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">pre</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>editor editor-colors<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>line<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>source js<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>storage modifier js<span class="pl-pds">"</span></span>&gt;var&lt;/<span class="pl-ent">span</span>&gt;<span class="pl-c1">&amp;nbsp;</span>hello<span class="pl-c1">&amp;nbsp;</span>&lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>keyword operator js<span class="pl-pds">"</span></span>&gt;=&lt;/<span class="pl-ent">span</span>&gt;<span class="pl-c1">&amp;nbsp;</span>&lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>string quoted single js<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>punctuation definition string begin js<span class="pl-pds">"</span></span>&gt;<span class="pl-c1">&amp;#39;</span>&lt;/<span class="pl-ent">span</span>&gt;world&lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>punctuation definition string end js<span class="pl-pds">"</span></span>&gt;<span class="pl-c1">&amp;#39;</span>&lt;/<span class="pl-ent">span</span>&gt;&lt;/<span class="pl-ent">span</span>&gt;&lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>punctuation terminator statement js<span class="pl-pds">"</span></span>&gt;;&lt;/<span class="pl-ent">span</span>&gt;&lt;/<span class="pl-ent">span</span>&gt;&lt;/<span class="pl-ent">div</span>&gt;&lt;/<span class="pl-ent">pre</span>&gt;
+</pre></div>
+
+<h3>
+<a id="developing" class="anchor" href="#developing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developing</h3>
+
+<ul>
+<li>Clone this repository <code>git clone https://github.com/jonruttan/delexe</code>
+</li>
+<li>Update the submodules by running <code>git submodule update --init --recursive</code>
+</li>
+<li>Run <code>npm install</code> to install the dependencies, compile the CoffeeScript, and
+build the grammars</li>
+<li>Run <code>npm test</code> to run the specs</li>
+</ul>
+
+<p><img class="emoji" title=":green_heart:" alt=":green_heart:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f49a.png" height="20" width="20" align="absmiddle"> Pull requests are greatly appreciated and welcomed.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/jonruttan">jonruttan</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
