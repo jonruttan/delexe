@@ -33,7 +33,7 @@ npm install -g less
 lessc --include-path=stylesheets index.less atom-dark-syntax.css
 ```
 
-Now you have an `atom-dark-syntax.css` stylesheet that be combined with
+Now you have an `atom-dark-syntax.css` stylesheet that can be combined with
 the `file.html` file to generate some nice looking code.
 
 Check out the [examples](https://jonruttan.github.io/delexe/examples) to see
