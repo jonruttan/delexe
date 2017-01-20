@@ -19,9 +19,9 @@ describe "Delexe", ->
         string = textlex.renderSync(scopeName: 'text.plain', fileTokens: [[value: 'test', scopes: [ 'text.plain.null-grammar' ]]])
         expect(string).toEqual '[body: [line: [scopes: text.plain.null-grammar [value: test]]]]'
 
-      it "overrides by filePath", ->
+      it "overrides by outputPath", ->
         textlex = new Delexe(includePath: path.join(__dirname, 'fixtures', 'includes'))
-        string = textlex.renderSync(filePath: 'txt', fileTokens: [[value: 'test', scopes: [ 'text.plain.null-grammar' ]]])
+        string = textlex.renderSync(outputPath: 'txt', fileTokens: [[value: 'test', scopes: [ 'text.plain.null-grammar' ]]])
         expect(string).toEqual '[body: [line: [scopes: text.plain.null-grammar [value: test]]]]'
 
   describe "renderSync", ->
