@@ -19,17 +19,17 @@ class Delexe
     return if @registry.renderers.length > 1
 
     if typeof @includePath is 'string'
-      if fs.isFileSync(@includePath)
-        @registry.loadRendererSync(@includePath)
-      else if fs.isDirectorySync(@includePath)
-        for filePath in fs.listSync(@includePath, ['cson', 'json'])
-          @registry.loadRendererSync(filePath)
+      if fs.isFileSync @includePath
+        @registry.loadRendererSync @includePath
+      else if fs.isDirectorySync @includePath
+        for filePath in fs.listSync @includePath, ['cson', 'json']
+          @registry.loadRendererSync filePath
 
-    renderersPath = path.join(__dirname, '..', 'gen', 'renderers.json')
-    for rendererPath, renderer of JSON.parse(fs.readFileSync(renderersPath))
+    renderersPath = path.join __dirname, '..', 'gen', 'renderers.json'
+    for rendererPath, renderer of JSON.parse fs.readFileSync renderersPath
       continue if @registry.rendererForScopeName(renderer.scopeName)?
-      renderer = @registry.createRenderer(rendererPath, renderer)
-      @registry.addRenderer(renderer)
+      renderer = @registry.createRenderer rendererPath, renderer
+      @registry.addRenderer renderer
 
   # Public: Require all the renderers from the renderers folder at the root of an
   #   npm module.
@@ -40,18 +40,18 @@ class Delexe
   requireRenderersSync: ({modulePath}={}) ->
     @loadRenderersSync()
 
-    if fs.isFileSync(modulePath)
-      packageDir = path.dirname(modulePath)
+    if fs.isFileSync modulePath
+      packageDir = path.dirname modulePath
     else
       packageDir = modulePath
 
-    renderersDir = path.resolve(packageDir, 'renderers')
+    renderersDir = path.resolve packageDir, 'renderers'
 
-    return unless fs.isDirectorySync(renderersDir)
+    return unless fs.isDirectorySync renderersDir
 
-    for file in fs.readdirSync(renderersDir)
-      if rendererPath = CSON.resolve(path.join(renderersDir, file))
-        @registry.loadRendererSync(rendererPath)
+    for file in fs.readdirSync renderersDir
+      if rendererPath = CSON.resolve path.join renderersDir, file
+        @registry.loadRendererSync rendererPath
 
   # Public: Render the given tokens.
   #
@@ -70,7 +70,7 @@ class Delexe
     @loadRenderersSync()
 
     fileTokens ?= CSON.readFileSync(filePath) if filePath
-    renderer = @registry.rendererForScopeName(scopeName)
+    renderer = @registry.rendererForScopeName scopeName
     renderer ?= @registry.selectRenderer outputPath
 
     # Remove trailing newline
