@@ -29,8 +29,16 @@ module.exports = (grunt) ->
           stderr: true
           failOnError: true
 
+    watch:
+      scripts:
+        files: ['src/*.coffee'],
+        tasks: ['test'],
+        options:
+          spawn: false
+
   grunt.loadNpmTasks 'grunt-coffeelint'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-shell'
   grunt.loadTasks 'tasks'
 
