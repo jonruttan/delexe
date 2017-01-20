@@ -58,19 +58,20 @@ class Delexe
   # options - An Object with the following keys:
   #   :fileTokens - The optional tokenized contents of the file. The file will
   #                   be read from disk if this is unspecified
-  #   :filePath     - The String path to the file.
+  #   :filePath     - The String path to the input file.
+  #   :outputPath   - The String path to the output file.
   #   :scopeName    - An optional String scope name of a renderer. The best match
   #                   renderer will be used if this is unspecified.
   #
   # Returns a String of HTML. The HTML will contains one <pre> with one <div>
   # per line and each line will contain one or more <span> elements for the
   # tokens in the line.
-  renderSync: ({filePath, fileTokens, scopeName}={}) ->
+  renderSync: ({filePath, outputPath, fileTokens, scopeName}={}) ->
     @loadRenderersSync()
 
     fileTokens ?= CSON.readFileSync(filePath) if filePath
     renderer = @registry.rendererForScopeName(scopeName)
-    renderer ?= @registry.selectRenderer(filePath, fileTokens)
+    renderer ?= @registry.selectRenderer outputPath
 
     # Remove trailing newline
     if fileTokens.length > 0

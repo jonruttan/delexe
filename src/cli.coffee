@@ -61,5 +61,10 @@ module.exports = ->
     process.stdin.on 'data', (chunk) -> fileContents += chunk.toString()
     process.stdin.on 'end', ->
       fileTokens = CSON.parse(fileContents)
-      string = delexe.renderSync({filePath, fileTokens, scopeName: cli.argv.scope})
+      string = delexe.renderSync {
+        filePath
+        outputPath: cli.argv.f or outputPath
+        fileTokens
+        scopeName: cli.argv.scope
+      }
       output outputPath, string
