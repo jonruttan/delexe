@@ -1,5 +1,7 @@
 Read in JSON/CSON tokens from a TextMate-style lexical analyser and render the tokens with rendering modules written in a TextMate-style syntax.
 
+Companion to the [Textlex](https://github.com/jonruttan/textlex) lexical analyser project.
+
 Based on code converted from the [Highlights](https://github.com/atom/highlights) project.
 
 [![Build Status](https://travis-ci.org/jonruttan/delexe.svg)](https://travis-ci.org/jonruttan/delexe)
@@ -49,77 +51,92 @@ Some popular themes:
 
 #### Using in code
 
-```coffee
-Delexe = require 'delexe'
-renderer = new Delexe()
-html = renderer.renderSync(
-  scopeName: 'text.html.plain'
-  fileTokens: [
-    [
-      {
-        "value": "var",
-        "scopes": [
-          "source.js",
-          "storage.modifier.js"
-        ]
-      },
-      {
-        "value": " hello ",
-        "scopes": [
-          "source.js"
-        ]
-      },
-      {
-        "value": "=",
-        "scopes": [
-          "source.js",
-          "keyword.operator.js"
-        ]
-      },
-      {
-        "value": " ",
-        "scopes": [
-          "source.js"
-        ]
-      },
-      {
-        "value": "'",
-        "scopes": [
-          "source.js",
-          "string.quoted.single.js",
-          "punctuation.definition.string.begin.js"
-        ]
-      },
-      {
-        "value": "world",
-        "scopes": [
-          "source.js",
-          "string.quoted.single.js"
-        ]
-      },
-      {
-        "value": "'",
-        "scopes": [
-          "source.js",
-          "string.quoted.single.js",
-          "punctuation.definition.string.end.js"
-        ]
-      },
-      {
-        "value": ";",
-        "scopes": [
-          "source.js",
-          "punctuation.terminator.statement.js"
-        ]
-      }
-    ]
-  ]
-)
+To convert a JSON token string to tokenized HTML run the following:
 
-console.log html
+```js
+var Delexe = require('delexe');
+var renderer = new Delexe();
+var fileTokens = [
+  [
+    {
+      "value": "var",
+      "scopes": [
+        "source.js",
+        "storage.modifier.js"
+      ]
+    },
+    {
+      "value": " hello ",
+      "scopes": [
+        "source.js"
+      ]
+    },
+    {
+      "value": "=",
+      "scopes": [
+        "source.js",
+        "keyword.operator.js"
+      ]
+    },
+    {
+      "value": " ",
+      "scopes": [
+        "source.js"
+      ]
+    },
+    {
+      "value": "'",
+      "scopes": [
+        "source.js",
+        "string.quoted.single.js",
+        "punctuation.definition.string.begin.js"
+      ]
+    },
+    {
+      "value": "world",
+      "scopes": [
+        "source.js",
+        "string.quoted.single.js"
+      ]
+    },
+    {
+      "value": "'",
+      "scopes": [
+        "source.js",
+        "string.quoted.single.js",
+        "punctuation.definition.string.end.js"
+      ]
+    },
+    {
+      "value": ";",
+      "scopes": [
+        "source.js",
+        "punctuation.terminator.statement.js"
+      ]
+    }
+  ]
+];
+
+var text = renderer.renderSync({
+  fileTokens: fileTokens
+});
+
+console.log(text);
+
+
+var html = renderer.renderSync({
+  scopeName: 'text.html.plain',
+  fileTokens: fileTokens
+});
+
+console.log(html);
 ```
 
 Outputs:
+
+```
+var hello = 'world';
+```
 
 ```html
 <pre class="editor editor-colors">
