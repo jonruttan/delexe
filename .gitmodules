@@ -4,3 +4,9 @@
 [submodule "deps/renderer-html"]
 	path = deps/renderer-html
 	url = https://github.com/jonruttan/renderer-html
+[submodule "deps/renderer-debug"]
+	path = deps/renderer-debug
+	url = https://github.com/jonruttan/renderer-debug
+[submodule "deps/renderer-term"]
+	path = deps/renderer-term
+	url = https://github.com/jonruttan/renderer-term
