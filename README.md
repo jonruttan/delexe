@@ -1,14 +1,15 @@
+# Delexe
+
+[![Build Status](https://travis-ci.org/jonruttan/delexe.svg)](https://travis-ci.org/jonruttan/delexe)
+[![Greenkeeper badge](https://badges.greenkeeper.io/jonruttan/delexe.svg)](https://greenkeeper.io/)
+
 Read in JSON/CSON tokens from a TextMate-style lexical analyser and render the tokens with rendering modules written in a TextMate-style syntax.
 
 Companion to the [Textlex](https://github.com/jonruttan/textlex) lexical analyser project.
 
 Based on code converted from the [Highlights](https://github.com/atom/highlights) project.
 
-[![Build Status](https://travis-ci.org/jonruttan/delexe.svg)](https://travis-ci.org/jonruttan/delexe)
-
 ### Installing
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/jonruttan/delexe.svg)](https://greenkeeper.io/)
 
 ```sh
 npm install delexe
