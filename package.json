@@ -23,7 +23,7 @@
     "last-mate": "^0.5.0",
     "season": "^6.0.1",
     "underscore-plus": "^1.6.6",
-    "yargs": "^9.0.1"
+    "yargs": "^15.3.1"
   },
   "devDependencies": {
     "coffeelint": "^1.16.0",
